@@ -63,6 +63,8 @@ async function getData() {
   } catch (err) {
     document.getElementById("status").innerText = "Error fetching data";
   }
+  // Update marker popup based on status
+marker.bindPopup(document.getElementById("status").innerText).openPopup();
 }
 
 // update every 2 seconds
