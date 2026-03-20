@@ -72,7 +72,21 @@ marker.bindPopup(document.getElementById("status").innerText);
   if (alerts.length === 0) {
   marker.setStyle({ color: "green" });
 } else {
+  if (alerts.includes("🌊 Flood Alert")) {
+  marker.setStyle({ color: "blue" });
+}
+else if (alerts.includes("🔥 Heatwave Alert")) {
+  marker.setStyle({ color: "orange" });
+}
+else if (alerts.includes("💨 Gas Leak Detected")) {
   marker.setStyle({ color: "red" });
+}
+else if (alerts.includes("🌍 Earthquake / Structural Risk")) {
+  marker.setStyle({ color: "purple" });
+}
+else {
+  marker.setStyle({ color: "green" });
+}
 }
 }
 function submitAlert() {
