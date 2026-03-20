@@ -114,6 +114,7 @@ async function submitAlert() {
 
     for (let key in resources) {
       const r = resources[key];
+      const type = r.type.toLowerCase(); // normalize
 
       const dist = getDistance(lat, lng, r.lat, r.lng);
 
