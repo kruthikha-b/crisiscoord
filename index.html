@@ -15,24 +15,42 @@
   </div>
 </div>
 
-  <h1>🚨 CrisisCoord</h1>
-  <h3>Smart Disaster Monitoring System</h3>
+<div class="container">
 
- <div class="card">
-  <h2 id="water">Water Level: --</h2>
-  <h2 id="temp">Temperature: --</h2>
-  <h2 id="gas">Gas Level: --</h2>
-  <h2 id="vibration">Vibration: --</h2>
-  <h2 id="status">Loading...</h2>
-</div>
+  <!-- DASHBOARD -->
+  <div class="dashboard">
+
+    <!-- SYSTEM STATUS -->
+    <div class="card status-card">
+      <h3>System Status</h3>
+      <p id="water"></p>
+      <p id="temp"></p>
+      <p id="gas"></p>
+      <p id="vibration"></p>
+      <div id="status" class="status-badge"></div>
+    </div>
+
+    <!-- ALERTS PANEL -->
+    <div class="card alert-card">
+      <h3>Active Alerts</h3>
+      <div id="alerts-list">No active alerts</div>
+    </div>
+
+  </div>
+
+  <!-- MAP -->
   <div id="map"></div>
-<h3>🚨 Report an Incident</h3>
 
-<div class="card">
-<input type="text" id="place" placeholder="Enter location (e.g. Gachibowli)" />
-  <input type="text" id="type" placeholder="Type (Flood/Gas/etc)" />
-  <button onclick="submitAlert()">Submit Alert</button>
+  <!-- REPORT INCIDENT -->
+  <div class="card form-card">
+    <h3>Report an Incident</h3>
+    <input type="text" id="place" placeholder="Enter location (e.g. Gachibowli)" />
+    <input type="text" id="type" placeholder="Type (Flood/Gas/etc)" />
+    <button onclick="submitAlert()">Submit Alert</button>
+  </div>
+
 </div>
+
   <script src="script.js?v=7"></script>
 
 </body>
