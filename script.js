@@ -94,8 +94,8 @@ async function submitAlert() {
   const lng = parseFloat(document.getElementById("lng").value);
   const type = document.getElementById("type").value;
 
-  if (!lat || !lng || !type) {
-    alert("Please fill all fields");
+  if (isNaN(lat) || isNaN(lng) || !type) {
+    alert("Please enter valid data");
     return;
   }
 
@@ -105,26 +105,35 @@ async function submitAlert() {
     .bindPopup("🚨 " + type)
     .openPopup();
 
-  // Fetch resources
-  const res = await fetch("https://disaster-alert-system-cf26d-default-rtdb.firebaseio.com/resources.json");
-  const resources = await res.json();
+  try {
+    const res = await fetch("https://disaster-alert-system-cf26d-default-rtdb.firebaseio.com/resources.json");
+    const resources = await res.json();
 
-  let nearest = null;
-  let minDist = Infinity;
+    let nearest = null;
+    let minDist = Infinity;
 
-  for (let key in resources) {
-    const r = resources[key];
+    for (let key in resources) {
+      const r = resources[key];
 
-    const dist = getDistance(lat, lng, r.lat, r.lng);
+      const dist = getDistance(lat, lng, r.lat, r.lng);
 
-    if (dist < minDist) {
-      minDist = dist;
-      nearest = r;
+      console.log("Checking:", r.type, dist); // DEBUG
+
+      if (dist < minDist) {
+        minDist = dist;
+        nearest = r;
+      }
     }
-  }
 
-  if (nearest) {
-    alert(`Nearest Resource: ${nearest.type} (${minDist.toFixed(2)} km away)`);
+    if (nearest) {
+      alert(`Nearest Resource: ${nearest.type} (${minDist.toFixed(2)} km away)`);
+    } else {
+      alert("No resources found");
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Error fetching resources");
   }
 
   // Save alert
@@ -133,6 +142,7 @@ async function submitAlert() {
     body: JSON.stringify({ lat, lng, type })
   });
 }
+
 async function loadResources() {
   try {
     const res = await fetch("https://disaster-alert-system-cf26d-default-rtdb.firebaseio.com/resources.json");
