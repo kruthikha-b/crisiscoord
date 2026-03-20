@@ -57,12 +57,30 @@ async function getData() {
     }
 
     // Final status
-    if (alerts.length === 0) {
+ const alertsContainer = document.getElementById("alerts-list");
+
+if (alerts.length === 0) {
   document.getElementById("status").innerText = "Safe";
-  document.getElementById("alerts-list").innerText = "No active alerts";
+
+  alertsContainer.innerHTML =
+    `<div class="alert-item alert-safe">✅ No active alerts</div>`;
 } else {
   document.getElementById("status").innerText = alerts.join(" | ");
-  document.getElementById("alerts-list").innerText = alerts.join("\n");
+
+  alertsContainer.innerHTML = alerts.map(a => {
+    let cls = "alert-warning";
+
+    if (a.includes("Gas") || a.includes("Earthquake")) {
+      cls = "alert-danger";
+    }
+
+    return `
+      <div class="alert-item ${cls}">
+        <span>${a}</span>
+        <span style="font-size:12px;opacity:0.7;">Now</span>
+      </div>
+    `;
+  }).join("");
 }
     
 
