@@ -1,0 +1,39 @@
+{
+  "ambulance1": { "lat": 17.385, "lng": 78.486, "type": "Ambulance" },
+  "ambulance2": { "lat": 17.406, "lng": 78.477, "type": "Ambulance" },
+  "ambulance3": { "lat": 17.372, "lng": 78.437, "type": "Ambulance" },
+  "ambulance4": { "lat": 17.448, "lng": 78.391, "type": "Ambulance" },
+  "ambulance5": { "lat": 17.335, "lng": 78.552, "type": "Ambulance" },
+
+  "ambulance6": { "lat": 17.450, "lng": 78.410, "type": "Ambulance" },
+  "ambulance7": { "lat": 17.420, "lng": 78.520, "type": "Ambulance" },
+  "ambulance8": { "lat": 17.360, "lng": 78.500, "type": "Ambulance" },
+  "ambulance9": { "lat": 17.395, "lng": 78.420, "type": "Ambulance" },
+  "ambulance10": { "lat": 17.370, "lng": 78.540, "type": "Ambulance" },
+
+  "vnr_ambulance1": { "lat": 17.5449, "lng": 78.3822, "type": "Ambulance" },
+  "vnr_ambulance2": { "lat": 17.5380, "lng": 78.3760, "type": "Ambulance" },
+  "vnr_ambulance3": { "lat": 17.5500, "lng": 78.3900, "type": "Ambulance" },
+
+  "hospital1": { "lat": 17.4239, "lng": 78.4738, "type": "Ambulance" },
+  "hospital2": { "lat": 17.4040, "lng": 78.4983, "type": "Ambulance" },
+  "hospital3": { "lat": 17.3587, "lng": 78.4511, "type": "Ambulance" },
+  "hospital4": { "lat": 17.445, "lng": 78.391, "type": "Ambulance" },
+  "hospital5": { "lat": 17.390, "lng": 78.480, "type": "Ambulance" },
+  "hospital6": { "lat": 17.365, "lng": 78.470, "type": "Ambulance" },
+  "hospital7": { "lat": 17.415, "lng": 78.465, "type": "Ambulance" },
+
+  "vnr_hospital1": { "lat": 17.5400, "lng": 78.3850, "type": "Ambulance" },
+
+  "fire1": { "lat": 17.4019, "lng": 78.4746, "type": "Fire Truck" },
+  "fire2": { "lat": 17.3855, "lng": 78.4738, "type": "Fire Truck" },
+  "fire3": { "lat": 17.3616, "lng": 78.4747, "type": "Fire Truck" },
+  "fire4": { "lat": 17.4516, "lng": 78.3802, "type": "Fire Truck" },
+  "fire5": { "lat": 17.420, "lng": 78.450, "type": "Fire Truck" },
+  "fire6": { "lat": 17.380, "lng": 78.490, "type": "Fire Truck" },
+  "fire7": { "lat": 17.360, "lng": 78.510, "type": "Fire Truck" },
+  "fire8": { "lat": 17.430, "lng": 78.420, "type": "Fire Truck" },
+
+  "vnr_fire1": { "lat": 17.5480, "lng": 78.3780, "type": "Fire Truck" },
+  "vnr_fire2": { "lat": 17.5350, "lng": 78.3700, "type": "Fire Truck" }
+}
