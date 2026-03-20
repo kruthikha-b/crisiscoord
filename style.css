@@ -95,7 +95,44 @@ body {
   background-color: #fef3c7; /* light yellow */
   font-size: 14px;
 }
+.alert-card {
+  display: flex;
+  flex-direction: column;
+}
 
+#alerts-list {
+  margin-top: 10px;
+  max-height: 180px;
+  overflow-y: auto;   /* 🔥 scroll */
+  padding-right: 5px;
+}
+
+/* Each alert item */
+.alert-item {
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Different alert colors */
+.alert-safe {
+  background: #e6f9f0;
+  color: #065f46;
+}
+
+.alert-warning {
+  background: #fff7ed;
+  color: #9a3412;
+}
+
+.alert-danger {
+  background: #fee2e2;
+  color: #7f1d1d;
+}
 /* ===== MAP ===== */
 #map {
   height: 450px;
