@@ -1,5 +1,13 @@
 const dbURL = "https://disaster-alert-system-cf26d-default-rtdb.firebaseio.com/sensor.json";
+// Initialize map
+const map = L.map('map').setView([17.3850, 78.4867], 13); // Hyderabad example
 
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+// Add marker
+let marker = L.marker([17.3850, 78.4867]).addTo(map);
 async function getData() {
   try {
     const res = await fetch(dbURL);
