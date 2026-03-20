@@ -13,6 +13,7 @@ let marker = L.circleMarker([17.3850, 78.4867], {
   color: "green"
 }).addTo(map);
 async function getData() {
+   let alerts = [];
   try {
     const res = await fetch(dbURL);
     const data = await res.json();
@@ -28,7 +29,7 @@ async function getData() {
     document.getElementById("gas").innerText = "Gas Level: " + gas;
     document.getElementById("vibration").innerText = "Vibration: " + vibration;
 
-    let alerts = [];
+   
     let color = "#ccffcc"; // default safe
 
     // 🌊 Flood
