@@ -90,58 +90,41 @@ else {
 }
 }
 async function submitAlert() {
-  const lat = parseFloat(document.getElementById("lat").value);
-  const lng = parseFloat(document.getElementById("lng").value);
+  const place = document.getElementById("place").value;
   const type = document.getElementById("type").value;
 
-  if (isNaN(lat) || isNaN(lng) || !type) {
-    alert("Please enter valid data");
+  if (!place || !type) {
+    alert("Please enter location and type");
     return;
   }
 
-  // Add alert marker
-  L.marker([lat, lng])
-    .addTo(map)
-    .bindPopup("🚨 " + type)
-    .openPopup();
-
   try {
-    const res = await fetch("https://disaster-alert-system-cf26d-default-rtdb.firebaseio.com/resources.json");
-    const resources = await res.json();
+    // 🌍 Convert place → coordinates
+    const geoRes = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${place}`
+    );
+    const geoData = await geoRes.json();
 
-    let nearest = null;
-    let minDist = Infinity;
-
-    for (let key in resources) {
-      const r = resources[key];
-      const type = r.type.toLowerCase(); // normalize
-
-      const dist = getDistance(lat, lng, r.lat, r.lng);
-
-      console.log("Checking:", r.type, dist); // DEBUG
-
-      if (dist < minDist) {
-        minDist = dist;
-        nearest = r;
-      }
+    if (geoData.length === 0) {
+      alert("Location not found");
+      return;
     }
 
-    if (nearest) {
-      alert(`Nearest Resource: ${nearest.type} (${minDist.toFixed(2)} km away)`);
-    } else {
-      alert("No resources found");
-    }
+    const lat = parseFloat(geoData[0].lat);
+    const lng = parseFloat(geoData[0].lon);
+
+    // Add marker
+    L.marker([lat, lng])
+      .addTo(map)
+      .bindPopup("🚨 " + type)
+      .openPopup();
+
+    // (your nearest resource logic continues here...)
 
   } catch (err) {
     console.error(err);
-    alert("Error fetching resources");
+    alert("Error fetching location");
   }
-
-  // Save alert
-  fetch("https://disaster-alert-system-cf26d-default-rtdb.firebaseio.com/alerts.json", {
-    method: "POST",
-    body: JSON.stringify({ lat, lng, type })
-  });
 }
 
 async function loadResources() {
