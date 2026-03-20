@@ -45,10 +45,16 @@ body {
 }
 
 /* ===== DASHBOARD GRID ===== */
+
 .dashboard {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+  align-items: stretch; 
+}
+
+.card {
+  height: 100%; 
 }
 
 /* ===== CARDS ===== */
