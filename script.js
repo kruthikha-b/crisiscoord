@@ -74,6 +74,34 @@ marker.bindPopup(document.getElementById("status").innerText).openPopup();
   marker.setStyle({ color: "red" });
 }
 }
+function submitAlert() {
+  const lat = document.getElementById("lat").value;
+  const lng = document.getElementById("lng").value;
+  const type = document.getElementById("type").value;
+
+  if (!lat || !lng || !type) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  // Add marker to map
+  L.marker([lat, lng])
+    .addTo(map)
+    .bindPopup("🚨 " + type)
+    .openPopup();
+
+  // Save to Firebase
+  fetch("https://disaster-alert-system-cf26d-default-rtdb.firebaseio.com/alerts.json", {
+    method: "POST",
+    body: JSON.stringify({
+      lat: lat,
+      lng: lng,
+      type: type
+    })
+  });
+
+  alert("Alert submitted!");
+}
 
 // update every 2 seconds
 setInterval(getData, 2000);
