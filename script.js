@@ -117,6 +117,34 @@ function submitAlert() {
 
   alert("Alert submitted!");
 }
+async function loadResources() {
+  try {
+    const res = await fetch("https://disaster-alert-system-cf26d-default-rtdb.firebaseio.com/resources.json");
+    const data = await res.json();
 
+    for (let key in data) {
+      const r = data[key];
+
+      let color = "blue";
+
+      if (r.type === "Ambulance") color = "green";
+      else if (r.type === "Fire Truck") color = "red";
+      else if (r.type === "Police") color = "blue";
+
+      L.circleMarker([r.lat, r.lng], {
+        radius: 8,
+        color: color
+      })
+      .addTo(map)
+      .bindPopup("🚨 " + r.type);
+    }
+
+  } catch (err) {
+    console.log("Error loading resources:", err);
+  }
+}
+
+// call it once
+loadResources();
 // update every 2 seconds
 setInterval(getData, 2000);
