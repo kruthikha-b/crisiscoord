@@ -58,11 +58,12 @@ async function getData() {
 
     // Final status
     if (alerts.length === 0) {
-      document.getElementById("status").innerText = "✅ Safe";
-    } else {
-      document.getElementById("status").innerText = alerts.join(" | ");
-    }
-
+  document.getElementById("status").innerText = "Safe";
+  document.getElementById("alerts-list").innerText = "No active alerts";
+} else {
+  document.getElementById("status").innerText = alerts.join(" | ");
+  document.getElementById("alerts-list").innerText = alerts.join("\n");
+}
     
 
   } catch (err) {
