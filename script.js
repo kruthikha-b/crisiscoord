@@ -89,9 +89,9 @@ else {
 }
 }
 }
-function submitAlert() {
-  const lat = document.getElementById("lat").value;
-  const lng = document.getElementById("lng").value;
+async function submitAlert() {
+  const lat = parseFloat(document.getElementById("lat").value);
+  const lng = parseFloat(document.getElementById("lng").value);
   const type = document.getElementById("type").value;
 
   if (!lat || !lng || !type) {
@@ -99,23 +99,39 @@ function submitAlert() {
     return;
   }
 
-  // Add marker to map
+  // Add alert marker
   L.marker([lat, lng])
     .addTo(map)
     .bindPopup("🚨 " + type)
     .openPopup();
 
-  // Save to Firebase
+  // Fetch resources
+  const res = await fetch("https://disaster-alert-system-cf26d-default-rtdb.firebaseio.com/resources.json");
+  const resources = await res.json();
+
+  let nearest = null;
+  let minDist = Infinity;
+
+  for (let key in resources) {
+    const r = resources[key];
+
+    const dist = getDistance(lat, lng, r.lat, r.lng);
+
+    if (dist < minDist) {
+      minDist = dist;
+      nearest = r;
+    }
+  }
+
+  if (nearest) {
+    alert(`Nearest Resource: ${nearest.type} (${minDist.toFixed(2)} km away)`);
+  }
+
+  // Save alert
   fetch("https://disaster-alert-system-cf26d-default-rtdb.firebaseio.com/alerts.json", {
     method: "POST",
-    body: JSON.stringify({
-      lat: lat,
-      lng: lng,
-      type: type
-    })
+    body: JSON.stringify({ lat, lng, type })
   });
-
-  alert("Alert submitted!");
 }
 async function loadResources() {
   try {
@@ -146,5 +162,20 @@ async function loadResources() {
 
 // call it once
 loadResources();
+function getDistance(lat1, lng1, lat2, lng2) {
+  const R = 6371; // km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) *
+    Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLng / 2) * Math.sin(dLng / 2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return R * c;
+}
 // update every 2 seconds
 setInterval(getData, 2000);
