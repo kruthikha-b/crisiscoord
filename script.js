@@ -68,6 +68,11 @@ async function getData() {
   }
   // Update marker popup based on status
 marker.bindPopup(document.getElementById("status").innerText).openPopup();
+  if (alerts.length === 0) {
+  marker.setStyle({ color: "green" });
+} else {
+  marker.setStyle({ color: "red" });
+}
 }
 
 // update every 2 seconds
