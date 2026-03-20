@@ -113,13 +113,59 @@ async function submitAlert() {
     const lat = parseFloat(geoData[0].lat);
     const lng = parseFloat(geoData[0].lon);
 
-    // Add marker
+    // 📍 Add alert marker
     L.marker([lat, lng])
       .addTo(map)
-      .bindPopup("🚨 " + type)
+      .bindPopup(`🚨 ${type} at ${place}`)
       .openPopup();
 
-    // (your nearest resource logic continues here...)
+    // 🚀 FETCH RESOURCES
+    const res = await fetch("https://disaster-alert-system-cf26d-default-rtdb.firebaseio.com/resources.json");
+    const resources = await res.json();
+
+    // 🎯 Decide required resource type
+    let requiredType = "Ambulance";
+
+    if (type.toLowerCase().includes("fire") || type.toLowerCase().includes("gas")) {
+      requiredType = "Fire Truck";
+    }
+
+    let nearest = null;
+    let minDist = Infinity;
+
+    // 🔍 Find nearest matching resource
+    for (let key in resources) {
+      const r = resources[key];
+
+      if (r.type !== requiredType) continue;
+
+      const dist = getDistance(lat, lng, r.lat, r.lng);
+
+      if (dist < minDist) {
+        minDist = dist;
+        nearest = r;
+      }
+    }
+
+    // 🎯 Show result
+    if (nearest) {
+      L.circleMarker([nearest.lat, nearest.lng], {
+        radius: 12,
+        color: "yellow"
+      })
+      .addTo(map)
+      .bindPopup(`Nearest ${nearest.type} (${minDist.toFixed(2)} km)`);
+
+      alert(`Nearest ${nearest.type} is ${minDist.toFixed(2)} km away`);
+    } else {
+      alert("No suitable resource found");
+    }
+
+    // 💾 Save alert
+    fetch("https://disaster-alert-system-cf26d-default-rtdb.firebaseio.com/alerts.json", {
+      method: "POST",
+      body: JSON.stringify({ lat, lng, type })
+    });
 
   } catch (err) {
     console.error(err);
