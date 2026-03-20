@@ -63,7 +63,7 @@ async function getData() {
       document.getElementById("status").innerText = alerts.join(" | ");
     }
 
-    document.body.style.backgroundColor = color;
+    
 
   } catch (err) {
     document.getElementById("status").innerText = "Error fetching data";
