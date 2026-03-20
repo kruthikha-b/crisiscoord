@@ -65,8 +65,8 @@ if (alerts.length === 0) {
   alertsContainer.innerHTML =
     `<div class="alert-item alert-safe">✅ No active alerts</div>`;
 } else {
-  document.getElementById("status").innerText = alerts.join(" | ");
 
+  document.getElementById("status").innerText = alerts[0];
   alertsContainer.innerHTML = alerts.map(a => {
     let cls = "alert-warning";
 
