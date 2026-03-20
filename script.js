@@ -7,7 +7,10 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // Add marker
-let marker = L.marker([17.3850, 78.4867]).addTo(map);
+let marker = L.circleMarker([17.3850, 78.4867], {
+  radius: 10,
+  color: "green"
+}).addTo(map);
 async function getData() {
   try {
     const res = await fetch(dbURL);
