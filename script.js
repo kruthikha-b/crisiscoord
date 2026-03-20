@@ -2,6 +2,7 @@ const dbURL = "https://disaster-alert-system-cf26d-default-rtdb.firebaseio.com/s
 // Initialize map
 const map = L.map('map').setView([17.3850, 78.4867], 13); // Hyderabad example
 
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
@@ -67,7 +68,7 @@ async function getData() {
     document.getElementById("status").innerText = "Error fetching data";
   }
   // Update marker popup based on status
-marker.bindPopup(document.getElementById("status").innerText).openPopup();
+marker.bindPopup(document.getElementById("status").innerText);
   if (alerts.length === 0) {
   marker.setStyle({ color: "green" });
 } else {
